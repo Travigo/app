@@ -76,19 +76,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   future: futureStops,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Column(children: [ for (var stop in snapshot.data!) Card(
-                        child: ListTile(
-                          leading: stop.getIcon(),
-                          title: Text(stop.primaryName!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                          subtitle: Text("${stop.otherNames?.indicator} ${stop.otherNames?.landmark}", style: const TextStyle(fontSize: 12)),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => StopViewScreen(stop: stop)),
-                            );
-                          },
-                        ),
-                      ) ]);
+                      return Column(children: [ for (var stop in snapshot.data!) 
+                        Card(
+                          elevation: 0.3,
+                          child: ListTile(
+                            dense: true,
+                            leading: stop.getIcon(),
+                            title: Text(stop.primaryName!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            subtitle: Text("${stop.otherNames?.indicator} ${stop.otherNames?.landmark}", style: const TextStyle(fontSize: 12)),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => StopViewScreen(stop: stop)),
+                              );
+                            },
+                          ),
+                        ) 
+                      ]);
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
