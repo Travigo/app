@@ -54,13 +54,41 @@ class _HomeScreenState extends State<HomeScreen> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        surfaceTintColor: const Color.fromARGB(0, 0, 0, 0),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        flexibleSpace: Container(
+          margin: EdgeInsets.only(
+            left: 4.0,
+            right: 4.0,
+            top: MediaQuery.of(context).viewPadding.top,
+            bottom: 0
+          ),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            color: Colors.white,
+            border: Border.all(color: const Color.fromARGB(255, 224, 224, 224)),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(255, 223, 222, 222),
+                spreadRadius: 0,
+                blurRadius: 1,
+                offset: Offset(0, 2), // changes position of shadow
+              )
+            ]
+          ),
+          // color: Colors.white,
+          // child: const Column(
+          //   children: [
+          //     Text('One'),
+          //     Text('Two'),
+          //     Text('Three'),
+          //     Text('Four'),
+          //   ],
+          // ),
+        ),
       ),
       body: ListView(
         children: <Widget>[
