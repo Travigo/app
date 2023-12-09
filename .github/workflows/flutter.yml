@@ -32,7 +32,7 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       # - run: flutter test
-      - run: flutter build web
+      - run: flutter build web --web-renderer canvaskit
       - name: Upload web app bundle
         uses: actions/upload-artifact@v3
         with:
