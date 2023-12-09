@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Dart
+name: Flutter Build & Deploy
 
 on:
   push:
@@ -28,3 +28,8 @@ jobs:
       - run: flutter pub get
       # - run: flutter test
       - run: flutter build web
+      - name: Upload travigo
+        uses: actions/upload-artifact@v3
+        with:
+          name: webapp
+          path: ./build/web/
