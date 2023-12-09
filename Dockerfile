@@ -13,7 +13,7 @@ RUN mkdir -p /var/www/html
 COPY nginx_config/nginx.conf /etc/nginx/nginx.conf
 COPY nginx_config/default.conf /etc/nginx/conf.d/default.conf
 
-COPY webapp/ /var/www/html
+COPY build/web/ /var/www/html
 
 # make all files belong to the nginx user
 RUN chown nginx:nginx /var/www/html
