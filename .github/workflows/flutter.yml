@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: webapp
-          path: ./build/
+          path: ./build/web/
 
       - run: pwd
       - run: ls -lah *
