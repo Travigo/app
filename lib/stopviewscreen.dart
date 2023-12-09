@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travigo/hexcolor.dart';
+import 'package:travigo/journey.dart';
 import 'package:travigo/stop.dart';
 import 'dart:convert';
 // ignore: depend_on_referenced_packages
@@ -11,13 +13,15 @@ class DepartureBoard {
   String? type;
   String? platform;
   String? platformType;
+  Journey? journey;
 
   DepartureBoard(
       {this.destinationDisplay,
       this.time,
       this.type,
       this.platform,
-      this.platformType});
+      this.platformType,
+      this.journey});
 
   DepartureBoard.fromJson(Map<String, dynamic> json) {
     destinationDisplay = json['DestinationDisplay'];
@@ -25,6 +29,9 @@ class DepartureBoard {
     type = json['Type'];
     platform = json['Platform'];
     platformType = json['PlatformType'];
+    journey = json['Journey'] != null
+        ? Journey.fromJson(json['Journey'])
+        : null;
   }
 }
 
@@ -88,21 +95,39 @@ class _StopViewScreenState extends State<StopViewScreen> {
                   }
                 }
 
+                Widget serviceWidget;
+
+                if (departure.journey!.service.brandIcon != "") {
+                  serviceWidget = Container(
+                      margin: const EdgeInsets.all(4.0),
+                      child: Image(
+                        image: NetworkImage("https://travigo.app${departure.journey!.service.brandIcon}"),
+                      )
+                  );
+                } else {
+                  serviceWidget = Text(departure.journey!.service.serviceName);
+                }
+
                 return Row(
                   children: [
                     Container(
                       margin: const EdgeInsets.all(10.0),
-                      color: Colors.amber[600],
                       width: 48.0,
                       height: 48.0,
-                      child: const Text("1a")
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        color: HexColor.fromHex(departure.journey!.service.brandColour),
+                      ),
+                      child: Expanded(
+                        child: Center(child: serviceWidget)
+                      )
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(departure.destinationDisplay!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                          Text(platformText, style: const TextStyle(fontSize: 12))
+                          Text(departure.destinationDisplay!, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                          Text(departure.journey == null ? "Unknown Operator" : departure.journey!.journeyOperator.primaryName)
                         ]
                       )
                     ),
@@ -112,7 +137,8 @@ class _StopViewScreenState extends State<StopViewScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(DateFormat('HH:mm').format(departureTime), style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                          departureTypeText
+                          departureTypeText,
+                          Text(platformText, style: const TextStyle(fontSize: 12))
                         ],
                       )
                     )
