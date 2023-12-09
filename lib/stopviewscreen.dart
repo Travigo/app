@@ -118,9 +118,7 @@ class _StopViewScreenState extends State<StopViewScreen> {
                         borderRadius: const BorderRadius.all(Radius.circular(15)),
                         color: HexColor.fromHex(departure.journey!.service.brandColour),
                       ),
-                      child: Expanded(
-                        child: Center(child: serviceWidget)
-                      )
+                      child: Center(child: serviceWidget)
                     ),
                     Expanded(
                       child: Column(
